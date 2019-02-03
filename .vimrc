@@ -25,6 +25,7 @@ set showmatch " show the matching part of the pair for [] {} and ()
 set textwidth=79 " wrap long lines
 set colorcolumn=79 " display column to wrap after
 set nowrap " don't display long lines wrapped
+set wildmode=longest,list " completion mode, first complete till longest common, list all matches
 
 " Detect file types
 filetype on " enable file type detection
@@ -50,7 +51,7 @@ Plug 'https://github.com/dracula/vim'
 Plug 'https://github.com/NLKNguyen/papercolor-theme'
 
 " Golang
-Plug 'https://github.com/fatih/vim-go'
+Plug 'https://github.com/fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 " Solidity
 Plug 'https://github.com/tomlion/vim-solidity'
@@ -114,4 +115,9 @@ if has('gui_running')
     set guioptions=-T
 else
     colorscheme PaperColor
+endif
+
+" Use local .vim-project folder for project specific settings
+if filereadable("./.vim-project/vimrc")
+    source ./.vim-project/vimrc
 endif
