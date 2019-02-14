@@ -11,7 +11,7 @@ set softtabstop=0 " disable inserting different number of spaces when <Tab> is p
 augroup tabgroup
 	autocmd!
 	autocmd FileType make setlocal noexpandtab " disable expanding tabs in Makefiles
-	autocmd FileType hs setlocal expandtab " enable expanding tabs in Haskell files
+	autocmd FileType haskell setlocal expandtab " enable expanding tabs in Haskell files
 augroup END
 
 " Preserve indentation when it is possible
