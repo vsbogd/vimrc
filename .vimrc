@@ -59,6 +59,10 @@ Plug 'https://github.com/tomlion/vim-solidity'
 " Tags
 Plug 'https://github.com/vim-scripts/taglist.vim'
 
+" Snippets
+Plug 'https://github.com/SirVer/ultisnips'
+Plug 'https://github.com/honza/vim-snippets'
+
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
