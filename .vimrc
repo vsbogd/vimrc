@@ -51,7 +51,7 @@ Plug 'https://github.com/dracula/vim'
 Plug 'https://github.com/NLKNguyen/papercolor-theme'
 
 " Golang
-Plug 'https://github.com/fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'https://github.com/fatih/vim-go'
 
 " Solidity
 Plug 'https://github.com/tomlion/vim-solidity'
@@ -74,7 +74,7 @@ augroup configgroup
     autocmd BufNewFile,BufRead *.cxxtest setlocal syntax=cpp
     autocmd FileType cpp nnoremap <Leader>oh :e %<.h<CR>
     autocmd FileType cpp nnoremap <Leader>oc :e %<.cc<CR>
- 
+
 	" Python
 	autocmd FileType python let python_highlight_all = 1
 augroup END
