@@ -44,6 +44,7 @@ Plug 'https://github.com/scrooloose/nerdtree'
 Plug 'https://github.com/tpope/vim-fugitive'
 Plug 'https://github.com/mileszs/ack.vim'
 Plug 'https://github.com/ctrlpvim/ctrlp.vim'
+Plug 'https://github.com/vim-syntastic/syntastic'
 
 " Color schemes
 Plug 'https://github.com/nanotech/jellybeans.vim'
@@ -103,14 +104,14 @@ endfunction
 " Highlight currently open buffer in NERDTree
 autocmd BufEnter * call SyncTree()
 
-" Fugitive
-set statusline=%<%f\ %h%m%r%{FugitiveStatusline()}%=%-14.(%l,%c%V%)\ %P
-
 " Ack
 let g:ackprg = 'ag --nogroup --nocolor --column'
 
 " CtrlP
 let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
+
+" Syntastic
+let g:syntastic_mode_map = { "mode": "passive" }
 
 " Color schemes
 if has('gui_running')
@@ -120,6 +121,16 @@ if has('gui_running')
 else
     colorscheme PaperColor
 endif
+
+" Status line
+" Syntastic
+set statusline=%#warningmsg#%{SyntasticStatuslineFlag()}%#statusline#
+" ~/.../filename [Help][+][RO]
+set statusline+=%<%f\ %h%m%r
+" Fugitive
+set statusline+=%{FugitiveStatusline()}
+" 120, 3            74%
+set statusline+=%=%-14.(%l,%c%V%)\ %P
 
 " Use local .vim-project folder for project specific settings
 if filereadable("./.vim-project/vimrc")
