@@ -82,6 +82,8 @@ augroup configgroup
 
 	" Python
 	autocmd FileType python let python_highlight_all = 1
+    autocmd FileType pyrex nnoremap <Leader>oh :e %<.pxd<CR>
+    autocmd FileType pyrex nnoremap <Leader>oc :e %<.pyx<CR>
 augroup END
 
 " NERDTree
