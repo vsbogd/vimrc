@@ -1,0 +1,114 @@
+extends java
+
+global !p
+def junit(snip):
+	if snip.opt("g:ultisnips_java_junit", "") == "3":
+		snip += ""
+	else:
+		snip.rv += "@Test\n\t"
+
+def nl(snip):
+	if snip.opt("g:ultisnips_java_brace_style", "") == "nl":
+		snip += ""
+	else:
+		snip.rv += " "
+def getArgs(group):
+	import re
+	word = re.compile('[a-zA-Z0-9><.]+ \w+')
+	return [i.split(" ") for i in word.findall(group) ]
+
+def camel(word):
+	if not word: return ''
+	return word[0].upper() + word[1:]
+
+def mixedCase(word):
+	if not word: return ''
+	return word[0].lower() + word[1:]
+
+endglobal
+
+snippet with "builder" b
+public ${1:Builder} set${2:Name}(${3:String} `!p snip.rv = mixedCase(t[2])`) {
+	this.`!p snip.rv = mixedCase(t[2])` = `!p snip.rv = mixedCase(t[2])`;
+	return this;
+}
+endsnippet
+
+snippet /pojo\(((\w+\s+\w+(\s*,\s*)?)+)\)/ "generate pojo with builder" br
+import lombok.EqualsAndHashCode
+import lombok.ToString
+
+// `!p snip.rv = match.group(0)`
+@EqualsAndHashCode
+@ToString
+public class ${1:`!p snip.rv = snip.basename or "Name"`} {
+`!p
+# fields
+vars = [re.split("\s+", var) for var in re.split("\s*,\s*", match.group(1))]
+snip.shift()
+for (type, name) in vars:
+	snip.rv += "\n" + snip.mkline("private final " + type + " " + name + ";")
+`
+
+	public Builder newBuilder() {
+		return new Builder();
+	}
+
+	public Builder toBuilder() {
+		return new Builder(this);
+	}
+
+	private $1(Builder builder) {`!p
+# constructor
+snip.shift(2)
+for (_, name) in vars:
+	snip.rv += "\n" + snip.mkline("this." + name + " = builder." + name + ";")
+`
+	}`!p
+# getters
+snip.shift()
+for (type, name) in vars:
+	snip.rv += "\n"
+	snip.rv += "\n" + snip.mkline("public " + type + " get" + camel(name) + "() {")
+	snip.shift()
+	snip.rv += "\n" + snip.mkline("return " + name + ";")
+	snip.unshift()
+	snip.rv += "\n" + snip.mkline("}")
+`
+
+	public static class Builder {
+`!p
+# fields
+snip.shift(2)
+for (type, name) in vars:
+	snip.rv += "\n" + snip.mkline("private " + type + " " + name + ";")
+`
+
+		private Builder() {
+		}
+
+		private Builder($1 object) {`!p
+# to builder
+snip.shift(3)
+for (_, name) in vars:
+	snip.rv += "\n" + snip.mkline("this." + name + " = " + "object." + name + ";")
+`
+		}`!p
+# setters
+snip.shift(2)
+for (type, name) in vars:
+	snip.rv += "\n"
+	snip.rv += "\n" + snip.mkline("public Builder set" + camel(name) + "(" + type + " " + name + ") {")
+	snip.shift()
+	snip.rv += "\n" + snip.mkline("this." + name + " = " + name + ";")
+	snip.rv += "\n" + snip.mkline("return this;")
+	snip.unshift()
+	snip.rv += "\n" + snip.mkline("}")
+`
+
+		public $1 build() {
+			return new $1(this);
+		}
+	}
+}$0
+endsnippet

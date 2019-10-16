@@ -115,6 +115,9 @@ let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
 " Syntastic
 let g:syntastic_mode_map = { "mode": "passive" }
 
+" Snippets
+let g:UltiSnipsSnippetDirectories = ["UltiSnips", "snips"]
+
 " Color schemes
 if has('gui_running')
     colorscheme PaperColor
