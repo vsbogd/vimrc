@@ -36,6 +36,11 @@ filetype indent on " enable file type specific indentation rules
 set hlsearch " highlight search
 set incsearch " search while typing
 
+" Replacement
+function ReplaceAll(from,to)
+	execute "!ag -0 -l ".a:from." | xargs -0 sed -ri -e 's/".a:from."/".a:to."/g'"
+endfunction
+
 " Plug
 call plug#begin('~/.vim/plugged')
 
