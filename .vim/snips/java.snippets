@@ -35,8 +35,8 @@ public ${1:Builder} set${2:Name}(${3:String} `!p snip.rv = mixedCase(t[2])`) {
 endsnippet
 
 snippet /pojo\(((\w+\s+\w+(\s*,\s*)?)+)\)/ "generate pojo with builder" br
-import lombok.EqualsAndHashCode
-import lombok.ToString
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 // `!p snip.rv = match.group(0)`
 @EqualsAndHashCode
@@ -50,7 +50,7 @@ for (type, name) in vars:
 	snip.rv += "\n" + snip.mkline("private final " + type + " " + name + ";")
 `
 
-	public Builder newBuilder() {
+	public static Builder newBuilder() {
 		return new Builder();
 	}
 
