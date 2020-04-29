@@ -1,0 +1,7 @@
+set expandtab
+autocmd FileType xml setlocal tabstop=2
+autocmd FileType xml setlocal shiftwidth=2
+autocmd FileType yaml setlocal tabstop=2
+autocmd FileType yaml setlocal shiftwidth=2
+
+let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g "" -U -p ./.vim-project/ignore'
