@@ -34,7 +34,7 @@ public ${1:Builder} set${2:Name}(${3:String} `!p snip.rv = mixedCase(t[2])`) {
 }
 endsnippet
 
-snippet /pojo\(((\w+\s+\w+(\s*,\s*)?)+)\)/ "generate pojo with builder" br
+snippet /pojo\((((\w|[<>\[\],\.])+\s+\w+(\s*,\s*)?)+)\)/ "generate pojo with builder" br
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
@@ -43,11 +43,21 @@ import lombok.ToString;
 @ToString
 public class ${1:`!p snip.rv = snip.basename or "Name"`} {
 `!p
+def is_list_builder(type):
+	return re.search(r'List\<[^\.]+\.Builder\>', type) is not None
+
+def strip_builder(type):
+	match = re.search(r'List\<([^\.]+\.Builder)\>', type)
+	return "List<" + match.group(1)[:-8] + ">"
+
 # fields
 vars = [re.split("\s+", var) for var in re.split("\s*,\s*", match.group(1))]
 snip.shift()
 for (type, name) in vars:
-	snip.rv += "\n" + snip.mkline("private final " + type + " " + name + ";")
+	if is_list_builder(type):
+		snip.rv += "\n" + snip.mkline("private final " + strip_builder(type) + " " + name + ";")
+	else:
+		snip.rv += "\n" + snip.mkline("private final " + type + " " + name + ";")
 `
 
 	public static Builder newBuilder() {
@@ -61,15 +71,22 @@ for (type, name) in vars:
 	private $1(Builder builder) {`!p
 # constructor
 snip.shift(2)
-for (_, name) in vars:
-	snip.rv += "\n" + snip.mkline("this." + name + " = builder." + name + ";")
+for (type, name) in vars:
+	if is_list_builder(type):
+		snip.rv += "\n" + snip.mkline("this." + name + " = builder." + name +
+		".stream().map(x -> x.build()).collect(Collectors.toList);")
+	else:
+		snip.rv += "\n" + snip.mkline("this." + name + " = builder." + name + ";")
 `
 	}`!p
 # getters
 snip.shift()
 for (type, name) in vars:
 	snip.rv += "\n"
-	snip.rv += "\n" + snip.mkline("public " + type + " get" + camel(name) + "() {")
+	if is_list_builder(type):
+		snip.rv += "\n" + snip.mkline("public " + strip_builder(type) + " get" + camel(name) + "() {")
+	else:
+		snip.rv += "\n" + snip.mkline("public " + type + " get" + camel(name) + "() {")
 	snip.shift()
 	snip.rv += "\n" + snip.mkline("return " + name + ";")
 	snip.unshift()
@@ -78,10 +95,26 @@ for (type, name) in vars:
 
 	public static class Builder {
 `!p
+def is_list(type):
+	return type.startswith("List");
+
+def strip_plural(name):
+	if name.endswith("s"):
+		return name[:-1]
+	else:
+		return name
+
+def strip_list(type):
+	match = re.search(r'List\<([^\>]+)\>', type)
+	return match.group(1)
+
 # fields
 snip.shift(2)
 for (type, name) in vars:
-	snip.rv += "\n" + snip.mkline("private " + type + " " + name + ";")
+	if is_list(type):
+		snip.rv += "\n" + snip.mkline("private " + type + " " + name + " = new ArrayList<>();")
+	else:
+		snip.rv += "\n" + snip.mkline("private " + type + " " + name + ";")
 `
 
 		private Builder() {
@@ -90,12 +123,71 @@ for (type, name) in vars:
 		private Builder($1 object) {`!p
 # to builder
 snip.shift(3)
-for (_, name) in vars:
-	snip.rv += "\n" + snip.mkline("this." + name + " = " + "object." + name + ";")
+for (type, name) in vars:
+	if is_list_builder(type):
+		snip.rv += "\n" + snip.mkline("this." + name + " = " + "object." + name +
+		".stream().map(x -> x.toBuilder()).collect(Collectors.toList);")
+	else:
+		snip.rv += "\n" + snip.mkline("this." + name + " = " + "object." + name + ";")
 `
 		}`!p
 # setters
 snip.shift(2)
+for (type, name) in vars:
+	if is_list(type):
+		singular = strip_plural(name);
+		singular_type = strip_list(type)
+		snip.rv += "\n"
+		snip.rv += "\n" + snip.mkline("public Builder add" + camel(singular) + "(" + singular_type + " " + singular + ") {")
+		snip.shift()
+		snip.rv += "\n" + snip.mkline("this." + name + ".add(" + singular + ");")
+		snip.rv += "\n" + snip.mkline("return this;")
+		snip.unshift()
+		snip.rv += "\n" + snip.mkline("}")
+		snip.rv += "\n"
+		snip.rv += "\n" + snip.mkline("public Builder clear" + camel(name) + "() {")
+		snip.shift()
+		snip.rv += "\n" + snip.mkline("this." + name + ".clear();")
+		snip.rv += "\n" + snip.mkline("return this;")
+		snip.unshift()
+		snip.rv += "\n" + snip.mkline("}")
+	else:
+		snip.rv += "\n"
+		snip.rv += "\n" + snip.mkline("public Builder set" + camel(name) + "(" + type + " " + name + ") {")
+		snip.shift()
+		snip.rv += "\n" + snip.mkline("this." + name + " = " + name + ";")
+		snip.rv += "\n" + snip.mkline("return this;")
+		snip.unshift()
+		snip.rv += "\n" + snip.mkline("}")
+	snip.rv += "\n"
+	snip.rv += "\n" + snip.mkline("public " + type + " get" + camel(name) + "() {")
+	snip.shift()
+	snip.rv += "\n" + snip.mkline("return " + name + ";")
+	snip.unshift()
+	snip.rv += "\n" + snip.mkline("}")
+`
+
+		public $1 build() {
+			return new $1(this);
+		}
+	}
+}$0
+endsnippet
+
+snippet /builder\((((\w|[<>\[\]])+\s+\w+(\s*,\s*)?)+)\)/ "generate builder" br
+public static class ${1:Builder} {
+`!p
+# fields
+vars = [re.split("\s+", var) for var in re.split("\s*,\s*", match.group(1))]
+snip.shift()
+for (type, name) in vars:
+	snip.rv += "\n" + snip.mkline("private final " + type + " " + name + ";")
+`
+
+	public $1() {
+	}`!p
+# setters
+snip.shift()
 for (type, name) in vars:
 	snip.rv += "\n"
 	snip.rv += "\n" + snip.mkline("public Builder set" + camel(name) + "(" + type + " " + name + ") {")
@@ -106,9 +198,9 @@ for (type, name) in vars:
 	snip.rv += "\n" + snip.mkline("}")
 `
 
-		public $1 build() {
-			return new $1(this);
-		}
+	public ${2:ValueClass} build() {
+		return new $2(this);
 	}
+
 }$0
 endsnippet
