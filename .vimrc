@@ -89,6 +89,9 @@ augroup configgroup
 	autocmd FileType python let python_highlight_all = 1
     autocmd FileType pyrex nnoremap <Leader>oh :e %<.pxd<CR>
     autocmd FileType pyrex nnoremap <Leader>oc :e %<.pyx<CR>
+
+    " Jenkins
+    autocmd BufNewFile,BufRead Jenkinsfile setlocal syntax=groovy
 augroup END
 
 " NERDTree
