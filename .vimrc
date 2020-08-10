@@ -69,6 +69,9 @@ Plug 'https://github.com/vim-scripts/taglist.vim'
 Plug 'https://github.com/SirVer/ultisnips'
 Plug 'https://github.com/honza/vim-snippets'
 
+" C++
+Plug 'https://github.com/ycm-core/YouCompleteMe'
+
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
@@ -84,6 +87,7 @@ augroup configgroup
     autocmd BufNewFile,BufRead *.cxxtest setlocal syntax=cpp
     autocmd FileType cpp nnoremap <Leader>oh :e %<.h<CR>
     autocmd FileType cpp nnoremap <Leader>oc :e %<.cc<CR>
+    autocmd FileType cpp nnoremap <C-]> :YcmCompleter GoTo<CR>
 
 	" Python
 	autocmd FileType python let python_highlight_all = 1
