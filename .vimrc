@@ -96,6 +96,9 @@ augroup configgroup
 
     " Jenkins
     autocmd BufNewFile,BufRead Jenkinsfile setlocal syntax=groovy
+
+    " Java
+    autocmd FileType java nnoremap <C-]> :YcmCompleter GoTo<CR>
 augroup END
 
 " NERDTree
@@ -126,6 +129,7 @@ let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
 
 " Syntastic
 let g:syntastic_mode_map = { "mode": "passive" }
+let g:syntastic_java_checkers = []
 
 " Snippets
 let g:UltiSnipsSnippetDirectories = ["UltiSnips", "snips"]
@@ -148,6 +152,15 @@ set statusline+=%<%f\ %h%m%r
 set statusline+=%{FugitiveStatusline()}
 " 120, 3            74%
 set statusline+=%=%-14.(%l,%c%V%)\ %P
+
+" Debug
+packadd termdebug
+nmap <F2> :Break<CR>
+nmap <F5> :Step<CR>
+nmap <F6> :Over<CR>
+nmap <F7> :Finish<CR>
+nmap <F8> :Continue<CR>
+nmap <F9> :Run<CR>
 
 " Use local .vim-project folder for project specific settings
 if filereadable("./.vim-project/vimrc")
