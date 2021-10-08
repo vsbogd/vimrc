@@ -50,6 +50,7 @@ Plug 'https://github.com/tpope/vim-fugitive'
 Plug 'https://github.com/mileszs/ack.vim'
 Plug 'https://github.com/ctrlpvim/ctrlp.vim'
 Plug 'https://github.com/vim-syntastic/syntastic'
+Plug 'https://github.com/will133/vim-dirdiff.git'
 
 " Color schemes
 Plug 'https://github.com/nanotech/jellybeans.vim'
@@ -126,13 +127,15 @@ let g:ackprg = 'ag --nogroup --nocolor --column'
 
 " CtrlP
 let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
+let g:ctrlp_by_filename = 1
+let g:ctrlp_working_path_mode = 'a'
 
 " Syntastic
 let g:syntastic_mode_map = { "mode": "passive" }
 let g:syntastic_java_checkers = []
 
 " Snippets
-let g:UltiSnipsSnippetDirectories = ["UltiSnips", "snips"]
+let g:UltiSnipsSnippetDirectories = ["snips"]
 
 " Color schemes
 if has('gui_running')
