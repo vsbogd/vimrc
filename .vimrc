@@ -84,8 +84,8 @@ Plug 'rust-lang/rust.vim'
 call plug#end()
 
 " LSP settings
-let g:lsc_server_commands = { 'rust': 'rls' }
-let g:lsc_auto_map = v:true
+let g:lsc_server_commands = { 'rust': 'rls', 'java': '/opt/java-language-server/lang_server_linux.sh' }
+let g:lsc_auto_map = { 'defaults': v:true, 'PreviousReference': '' }
 
 " FileType specific settings
 augroup configgroup
