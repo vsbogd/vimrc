@@ -57,6 +57,9 @@ Plug 'https://github.com/nanotech/jellybeans.vim'
 Plug 'https://github.com/dracula/vim'
 Plug 'https://github.com/NLKNguyen/papercolor-theme'
 
+" LSP support
+Plug 'natebosch/vim-lsc'
+
 " Golang
 Plug 'https://github.com/fatih/vim-go'
 
@@ -71,10 +74,18 @@ Plug 'https://github.com/SirVer/ultisnips'
 Plug 'https://github.com/honza/vim-snippets'
 
 " C++
-Plug 'https://github.com/ycm-core/YouCompleteMe'
+"Plug 'https://github.com/ycm-core/YouCompleteMe'
+"Plug 'https://github.com/ervandew/supertab'
+
+" Rust
+Plug 'rust-lang/rust.vim'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
+
+" LSP settings
+let g:lsc_server_commands = { 'rust': 'rls' }
+let g:lsc_auto_map = v:true
 
 " FileType specific settings
 augroup configgroup
@@ -136,6 +147,11 @@ let g:syntastic_java_checkers = []
 
 " Snippets
 let g:UltiSnipsSnippetDirectories = ["snips"]
+
+" Remap you-complete-me keys to allow using <tab> for snippets
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+"let g:SuperTabDefaultCompletionType = '<C-n>'
 
 " Color schemes
 if has('gui_running')
