@@ -51,6 +51,8 @@ Plug 'https://github.com/mileszs/ack.vim'
 Plug 'https://github.com/ctrlpvim/ctrlp.vim'
 Plug 'https://github.com/vim-syntastic/syntastic'
 Plug 'https://github.com/will133/vim-dirdiff.git'
+Plug 'frazrepo/vim-rainbow'
+Plug 'preservim/nerdcommenter'
 
 " Color schemes
 Plug 'https://github.com/nanotech/jellybeans.vim'
@@ -73,18 +75,18 @@ Plug 'https://github.com/vim-scripts/taglist.vim'
 Plug 'https://github.com/SirVer/ultisnips'
 Plug 'https://github.com/honza/vim-snippets'
 
-" C++
-"Plug 'https://github.com/ycm-core/YouCompleteMe'
-"Plug 'https://github.com/ervandew/supertab'
-
 " Rust
 Plug 'rust-lang/rust.vim'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
-" LSP settings
-let g:lsc_server_commands = { 'rust': 'rls', 'java': '/opt/java-language-server/lang_server_linux.sh' }
+" LSP settings, requires installation of language servers:
+" Rust: https://github.com/rust-lang/rls
+" Python: https://github.com/python-lsp/python-lsp-server
+" CPP: https://clangd.llvm.org/installation
+" Java: https://github.com/georgewfraser/java-language-server
+let g:lsc_server_commands = { 'rust': 'rls', 'python': 'pylsp', 'cpp': 'clangd', 'java': '/opt/java-language-server/lang_server_linux.sh' }
 let g:lsc_auto_map = { 'defaults': v:true, 'PreviousReference': '' }
 
 " FileType specific settings
@@ -99,7 +101,6 @@ augroup configgroup
     autocmd BufNewFile,BufRead *.cxxtest setlocal syntax=cpp
     autocmd FileType cpp nnoremap <Leader>oh :e %<.h<CR>
     autocmd FileType cpp nnoremap <Leader>oc :e %<.cc<CR>
-    autocmd FileType cpp nnoremap <C-]> :YcmCompleter GoTo<CR>
 
 	" Python
 	autocmd FileType python let python_highlight_all = 1
@@ -108,9 +109,6 @@ augroup configgroup
 
     " Jenkins
     autocmd BufNewFile,BufRead Jenkinsfile setlocal syntax=groovy
-
-    " Java
-    autocmd FileType java nnoremap <C-]> :YcmCompleter GoTo<CR>
 augroup END
 
 " NERDTree
@@ -147,11 +145,6 @@ let g:syntastic_java_checkers = []
 
 " Snippets
 let g:UltiSnipsSnippetDirectories = ["snips"]
-
-" Remap you-complete-me keys to allow using <tab> for snippets
-let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-"let g:SuperTabDefaultCompletionType = '<C-n>'
 
 " Color schemes
 if has('gui_running')
