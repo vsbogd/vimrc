@@ -1,0 +1,9 @@
+extends rust
+
+snippet cfn "C API function definition"
+#[no_mangle]
+pub extern "C" fn ${1:function_name}(${2})${3} {
+	${0}
+}
+endsnippet
+
