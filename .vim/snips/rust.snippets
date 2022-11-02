@@ -7,3 +7,11 @@ pub extern "C" fn ${1:function_name}(${2})${3} {
 }
 endsnippet
 
+snippet cstruct "C API struct definition"
+#[allow(non_camel_case_types)]
+#[repr(C)]
+pub struct ${1} {
+	${0}
+}
+endsnippet
+
