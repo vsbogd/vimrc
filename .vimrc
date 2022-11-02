@@ -3,7 +3,7 @@ nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
 " Use only spaces
-set noexpandtab " don't expand tabs into spaces, do it in each project specifically
+set expandtab " expand tabs into spaces
 set tabstop=4 " set tabs to have 4 spaces
 set shiftwidth=4 " when using the >> or << commands, shift lines by 4 spaces
 set softtabstop=0 " disable inserting different number of spaces when <Tab> is pressed
