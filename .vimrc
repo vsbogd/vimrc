@@ -87,6 +87,7 @@ call plug#end()
 " CPP: https://clangd.llvm.org/installation
 " Java: https://github.com/georgewfraser/java-language-server
 let g:lsc_server_commands = { 'rust': 'rls', 'python': 'pylsp', 'cpp': 'clangd', 'java': '/opt/java-language-server/lang_server_linux.sh' }
+set completeopt-=preview
 let g:lsc_auto_map = { 'defaults': v:true, 'PreviousReference': '' }
 
 " FileType specific settings
