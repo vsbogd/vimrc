@@ -26,6 +26,7 @@ set textwidth=79 " wrap long lines
 set colorcolumn=79 " display column to wrap after
 set nowrap " don't display long lines wrapped
 set wildmode=longest,list " completion mode, first complete till longest common, list all matches
+set spell spelllang=en_us " enable spell checking
 
 " Detect file types
 filetype on " enable file type detection
