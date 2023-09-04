@@ -110,6 +110,9 @@ augroup configgroup
 
     " Jenkins
     autocmd BufNewFile,BufRead Jenkinsfile setlocal syntax=groovy
+
+    " Metta
+    autocmd BufNewFile,BufRead *.metta setlocal syntax=lisp
 augroup END
 
 " NERDTree
