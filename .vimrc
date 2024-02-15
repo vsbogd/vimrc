@@ -62,6 +62,7 @@ Plug 'https://github.com/NLKNguyen/papercolor-theme'
 
 " LSP support
 Plug 'natebosch/vim-lsc'
+Plug 'liuchengxu/vista.vim'
 
 " Golang
 Plug 'https://github.com/fatih/vim-go'
@@ -189,6 +190,11 @@ nmap <F6> :Over<CR>
 nmap <F7> :Finish<CR>
 nmap <F8> :Continue<CR>
 nmap <F9> :Run<CR>
+
+" Vista
+let g:vista#renderer#enable_icon = 0
+let g:vista_default_executive = 'vim_lsc'
+"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | Vista | endif
 
 " Use local .vim-project folder for project specific settings
 if filereadable("./.vim-project/vimrc")
