@@ -106,7 +106,7 @@ augroup configgroup
     autocmd FileType go inoremap <C-F11> <ESC>:w<CR>:GoRun<CR>
 
     " C++
-    autocmd BufNewFile,BufRead *.cxxtest setlocal syntax=cpp
+    autocmd BufNewFile,BufRead *.cxxtest setlocal filetype=cpp
     autocmd FileType cpp nnoremap <Leader>oh :e %<.h<CR>
     autocmd FileType cpp nnoremap <Leader>oc :e %<.cc<CR>
 
@@ -116,10 +116,15 @@ augroup configgroup
     autocmd FileType pyrex nnoremap <Leader>oc :e %<.pyx<CR>
 
     " Jenkins
-    autocmd BufNewFile,BufRead Jenkinsfile setlocal syntax=groovy
+    autocmd BufNewFile,BufRead Jenkinsfile setlocal filetype=groovy
 
     " Metta
-    autocmd BufNewFile,BufRead *.metta setlocal syntax=lisp
+    autocmd BufNewFile,BufRead *.metta setlocal filetype=lisp
+
+    " Lisp
+    autocmd FileType lisp set tabstop=2
+    autocmd FileType lisp set shiftwidth=2
+
 augroup END
 
 " NERDTree
