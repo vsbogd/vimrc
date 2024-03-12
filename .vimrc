@@ -63,6 +63,7 @@ Plug 'https://github.com/NLKNguyen/papercolor-theme'
 " LSP support
 Plug 'natebosch/vim-lsc'
 Plug 'liuchengxu/vista.vim'
+Plug 'preservim/tagbar'
 
 " Golang
 Plug 'https://github.com/fatih/vim-go'
@@ -127,6 +128,9 @@ augroup configgroup
     autocmd FileType lisp set shiftwidth=2
 
 augroup END
+
+" Tagbar
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | Tagbar | endif
 
 " NERDTree
 let NERDTreeIgnore=['\.o$', '\.pyc$', '\.swp', '\~$'] " ignore binary files
@@ -193,8 +197,7 @@ nmap <F9> :Run<CR>
 
 " Vista
 let g:vista#renderer#enable_icon = 0
-let g:vista_default_executive = 'vim_lsc'
-"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | Vista | endif
+let g:vista_default_executive = 'ctags'
 
 " Use local .vim-project folder for project specific settings
 if filereadable("./.vim-project/vimrc")
