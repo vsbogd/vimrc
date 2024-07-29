@@ -187,7 +187,7 @@ set statusline+=%{FugitiveStatusline()}
 set statusline+=%=%-14.(%l,%c%V%)\ %P
 
 " Debug
-packadd termdebug
+packadd! termdebug
 nmap <F2> :Break<CR>
 nmap <F5> :Step<CR>
 nmap <F6> :Over<CR>
