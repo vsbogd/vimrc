@@ -7,12 +7,6 @@ set expandtab " expand tabs into spaces
 set tabstop=4 " set tabs to have 4 spaces
 set shiftwidth=4 " when using the >> or << commands, shift lines by 4 spaces
 set softtabstop=0 " disable inserting different number of spaces when <Tab> is pressed
-" settings for specific filetypes
-augroup tabgroup
-	autocmd!
-	autocmd FileType make setlocal noexpandtab " disable expanding tabs in Makefiles
-	autocmd FileType haskell setlocal expandtab " enable expanding tabs in Haskell files
-augroup END
 
 " Preserve indentation when it is possible
 set autoindent " indent when moving to the next line while writing code
@@ -32,6 +26,14 @@ set spell spelllang=en_us " enable spell checking
 filetype on " enable file type detection
 filetype plugin on " enable file type specific plugins
 filetype indent on " enable file type specific indentation rules
+
+" settings for specific filetypes
+augroup tabgroup
+	autocmd!
+	autocmd FileType make setlocal noexpandtab " disable expanding tabs in Makefiles
+	autocmd FileType haskell setlocal expandtab " enable expanding tabs in Haskell files
+	autocmd FileType asm setlocal expandtab " enable expanding tabs in assembly files
+augroup END
 
 " Search settings
 set hlsearch " highlight search
