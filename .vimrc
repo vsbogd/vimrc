@@ -170,12 +170,11 @@ let g:syntastic_java_checkers = []
 let g:UltiSnipsSnippetDirectories = ["snips"]
 
 " Color schemes
+set background=light
+colorscheme PaperColor
 if has('gui_running')
-    colorscheme PaperColor
-    set guifont=Monospace\ 11
+    set guifont=Monospace\ Bold\ 18
     set guioptions=-T
-else
-    colorscheme PaperColor
 endif
 
 " Status line
