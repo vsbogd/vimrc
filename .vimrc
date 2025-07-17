@@ -87,7 +87,7 @@ Plug 'rust-lang/rust.vim'
 call plug#end()
 
 " LSP settings, requires installation of language servers:
-" Rust: https://github.com/rust-lang/rls
+" Rust: rustup component add rust-analyzer
 " Python: https://github.com/python-lsp/python-lsp-server
 " CPP: https://clangd.llvm.org/installation
 " Java: https://github.com/georgewfraser/java-language-server
