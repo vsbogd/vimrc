@@ -33,6 +33,7 @@ augroup tabgroup
 	autocmd FileType make setlocal noexpandtab " disable expanding tabs in Makefiles
 	autocmd FileType haskell setlocal expandtab " enable expanding tabs in Haskell files
 	autocmd FileType asm setlocal expandtab " enable expanding tabs in assembly files
+	autocmd FileType python map <buffer> <F9> :w<CR>:exec '!python' shellescape(@%, 1)<CR>
 augroup END
 
 " Search settings
