@@ -133,7 +133,7 @@ augroup configgroup
 augroup END
 
 " Tagbar
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | Tagbar | endif
+"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | Tagbar | endif
 
 " NERDTree
 let NERDTreeIgnore=['\.o$', '\.pyc$', '\.swp', '\~$'] " ignore binary files
