@@ -65,8 +65,8 @@ Plug 'https://github.com/NLKNguyen/papercolor-theme'
 
 " LSP support
 Plug 'natebosch/vim-lsc'
+Plug 'dense-analysis/ale'
 Plug 'liuchengxu/vista.vim'
-Plug 'preservim/tagbar'
 
 " Golang
 Plug 'https://github.com/fatih/vim-go'
@@ -75,7 +75,7 @@ Plug 'https://github.com/fatih/vim-go'
 Plug 'https://github.com/tomlion/vim-solidity'
 
 " Tags
-Plug 'https://github.com/vim-scripts/taglist.vim'
+Plug 'preservim/tagbar'
 
 " Snippets
 Plug 'https://github.com/SirVer/ultisnips'
@@ -87,7 +87,7 @@ Plug 'rust-lang/rust.vim'
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
-" LSP settings, requires installation of language servers:
+" LSC LSP settings, requires installation of language servers:
 " Rust: rustup component add rust-analyzer
 " Python: https://github.com/python-lsp/python-lsp-server
 " CPP: https://clangd.llvm.org/installation
@@ -101,6 +101,19 @@ let g:lsc_server_commands = {
             \ }
 set completeopt-=preview
 let g:lsc_auto_map = { 'defaults': v:true, 'PreviousReference': '' }
+
+" ALE LSP settings
+let g:ale_disable_lsp = 1
+nnoremap <C-n> :ALENext<CR>
+"let g:ale_completion_enabled = 1
+"nnoremap <C-]> :ALEGoToDefinition<CR>
+"nnoremap gr :ALEFindReferences<CR>
+"nnoremap gI :ALEGoToImplementation<CR>
+"nnoremap ga :ALECodeAction<CR>
+"nnoremap gR :ALERename<CR>
+"nnoremap go :ALEDocumentation<CR>
+"nnoremap gm :ALEDetail<CR>
+"nnoremap completefunc :ALEComplete<CR>
 
 " FileType specific settings
 augroup configgroup
@@ -133,6 +146,7 @@ augroup configgroup
 augroup END
 
 " Tagbar
+let g:tagbar_ctags_bin = 'ctags-universal'
 "autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | Tagbar | endif
 
 " NERDTree
