@@ -57,6 +57,7 @@ Plug 'https://github.com/vim-syntastic/syntastic'
 Plug 'https://github.com/will133/vim-dirdiff.git'
 Plug 'frazrepo/vim-rainbow'
 Plug 'preservim/nerdcommenter'
+Plug 'https://github.com/vsbogd/gitignore.vim'
 
 " Color schemes
 Plug 'https://github.com/nanotech/jellybeans.vim'
@@ -86,6 +87,10 @@ Plug 'rust-lang/rust.vim'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
+
+" Gitignore plugin
+" Automatically load entries from .gitignore to wildignore variable
+autocmd VimEnter * WildignoreFromGitignore
 
 " LSC LSP settings, requires installation of language servers:
 " Rust: rustup component add rust-analyzer
@@ -151,9 +156,9 @@ let g:tagbar_ctags_bin = 'ctags-universal'
 "autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | Tagbar | endif
 
 " NERDTree
-let NERDTreeIgnore=['\.o$', '\.pyc$', '\.swp', '\~$'] " ignore binary files
 nnoremap <leader>nn :NERDTreeFocus<CR>
 nnoremap <leader>nt :NERDTreeToggle<CR>
+let NERDTreeRespectWildIgnore = 1
 autocmd StdinReadPre * let s:std_in=1 " detect if vim started with stdin input
 " open NERDTree if no arguments
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
