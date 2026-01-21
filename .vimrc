@@ -146,11 +146,14 @@ augroup configgroup
 augroup END
 
 " Tagbar
+nnoremap <leader>tt :TagbarToggle<CR>
 let g:tagbar_ctags_bin = 'ctags-universal'
 "autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | Tagbar | endif
 
 " NERDTree
 let NERDTreeIgnore=['\.o$', '\.pyc$', '\.swp', '\~$'] " ignore binary files
+nnoremap <leader>nn :NERDTreeFocus<CR>
+nnoremap <leader>nt :NERDTreeToggle<CR>
 autocmd StdinReadPre * let s:std_in=1 " detect if vim started with stdin input
 " open NERDTree if no arguments
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
